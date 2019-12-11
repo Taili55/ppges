@@ -6,11 +6,12 @@
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $cargo = $_POST['cargo'];
+    $subcargo = $_POST['subcargo'];
 
 
-	if(isset($nome) && isset($email) && isset($cargo)){
+	if(isset($nome) && isset($email) && isset($cargo) && isset($subcargo)){
 	
-	$result_func = "UPDATE coord SET nome = '$nome', email = '$email', cargo = '$cargo' WHERE idcoord = '$idcoord'";
+	$result_func = "UPDATE coord SET nome = '$nome', email = '$email', cargo = '$cargo', subcargo = '$subcargo' WHERE idcoord = '$idcoord'";
 	$resultado_func = mysqli_query($conn, $result_func);
 	
 	

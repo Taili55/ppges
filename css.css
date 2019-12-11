@@ -54,7 +54,7 @@ opacity:1;
 
 
 .nav-pills .nav-link.active{
-    background-color: white;
+    background-color: rgba(38, 36, 36, 0.21);
     border-bottom: 2px solid #2d842d;
     color: #2d842d;
     border-radius: none;

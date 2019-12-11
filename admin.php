@@ -19,7 +19,7 @@ $Home=mysqli_query ($conn, $sql);
 <!DOCTYPE>
 <html>
     <head>
-        <title>Informes</title>
+        <title>Adm</title>
         <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -34,10 +34,12 @@ $Home=mysqli_query ($conn, $sql);
     </head>
     
     <body>
-        <div class="menu" style="height:10%">
+        <div class="menu" style="height:10%" >
             <br>
             <a  href="admin.php" style="font-size:24px; color: black; margin-left: 3%; text-decoration:none; "> PPGES ADMINISTRATIVO </a> 
-           
+            
+            <a style="margin-left:65%; margin-top: -2%;" href="sair.php" class="btn btn-success " role="button"> <span class="oi oi-account-login"></span> Sair</a>
+            
         </div> 
        
         
@@ -51,25 +53,24 @@ $Home=mysqli_query ($conn, $sql);
                    
                         <a  class="card-header bg-transparent border-success" style="color:  #000;" >MENU</a>
                         
-                        <a class="nav-link" style="color:  #000;"  href="index.html">Home</a>
+                        <a class="nav-link" style="background-color:rgba(185, 182, 182, 0.42) ; color:  #000;"  href="index.html">Home</a>
                       
-                        <a class="nav-link" style="color:  #000;"  href="informes.html">Informes</a>
+                        <a class="nav-link" style="color:  #000;"  href="info_edit.php">Informes</a>
                      
                         <a class="nav-link" style="color:  #000;"  href="coord_edit.php">Coordenação</a>
                       
-                        <a class="nav-link" style="color:  #000;"  href="">Professores Orientadores</a>
+                        <a class="nav-link" style="color:  #000;"  href="prof_edit.php">Professores Orientadores</a>
                                             
-                        <a class="nav-link" style="color:  #000;"  href="eventos.html">Eventos</a>
+                        <a class="nav-link" style="color:  #000;"  href="event_edit.php">Eventos</a>
                        
-                        <a class="nav-link" style="color:  #000;"  href="ciclo.html">Ciclo de Seminários e Palestras</a>
+                        <a class="nav-link" style="color:  #000;"  href="ciclo_edit.php">Ciclo de Seminários e Palestras</a>
                     
-                        <a class="nav-link" style="color:  #000;"  href="disc.html">Disciplinas do Mestrado</a>
+                        <a class="nav-link" style="color:  #000;"  href="disc_edit.php">Disciplinas do Mestrado</a>
                         
-                        <a class="nav-link" style="color:  #000;"  href="aluno.html">Alunos</a>
+                        <a class="nav-link" style="color:  #000;"  href="aluno_edit.php">Alunos</a>
                       
-                        <a class="nav-link" style="color:  #000;" href="publi.html">Publicações </a>
+                        <a class="nav-link" style="color:  #000;" href="publi_edit.php">Publicações </a>
                     
-                        <a class="nav-link" style="color:  #000;" href="publi.html">Bolsista </a>
                         
                 </nav>
             </div>
@@ -96,7 +97,7 @@ $Home=mysqli_query ($conn, $sql);
                                                 <button type="button"  class="btn btn-success" data-toggle="modal" data-target="#confirm<?php echo $rows_Home['idhome']; ?>"><span class="oi oi-pencil"></span></button> 
                                                 
                                                 <div class="modal fade" id="confirm<?php echo $rows_Home['idhome']; ?>" role="dialog ">
-                                                      <div class="modal-dialog ">
+                                                      <div class="modal-dialog modal-lg ">
                                                         <div class="modal-content ">
                                                           <div class="modal-body"  >
                                                               <form method="POST" action="php/edit_Home.php">
@@ -129,10 +130,10 @@ $Home=mysqli_query ($conn, $sql);
                                                     </div>
                                                 </div>
                                                 	
-                                                <button type="button"  class="btn btn-default " data-toggle="modal" data-target="#confirma<?php echo $rows_Home['idhome']; ?>"><span class="oi oi-plus" ></span></button> 
+                                                <button type="button"  class="btn btn-default " data-toggle="modal" data-target="#confirma<?php echo $rows_Home['idhome']; ?>"><span class="oi oi-spreadsheet" ></span></button> 
                                                 
                                                 <div class="modal fade" id="confirma<?php echo $rows_Home['idhome']; ?>" role="dialog ">
-                                                    <div class="modal-dialog ">
+                                                    <div class="modal-dialog modal-lg ">
                                                         <div class="modal-content modal-lg">
                                                             <div class="modal-body">
                                                                <h4>Descrição: </h4>
@@ -166,7 +167,7 @@ $Home=mysqli_query ($conn, $sql);
                                                 <button type="button"  class="btn btn-success " data-toggle="modal" data-target="#confirms<?php echo $rows_Home['idhome']; ?>"><span class="oi oi-pencil"></span>    </button>
                                                 
                                                 <div class="modal fade" id="confirms<?php echo $rows_Home['idhome']; ?>" role="dialog ">
-                                                      <div class="modal-dialog ">
+                                                      <div class="modal-dialog modal-lg ">
                                                         <div class="modal-content modal-lg">
                                                           <div class="modal-body">
                                                               <form method="POST" action="php/edit_Home.php">
@@ -183,11 +184,11 @@ $Home=mysqli_query ($conn, $sql);
                                         
                                                                 <br><br>
                                                                 <center>
-                                                                    <input type="hidden" name="apresentacao" value="<?php echo $rows_Home['apresentacao']; ?>">
+                                                                    <input type="hidden" name="apresentacao" >
                                                                     
-                                                                    <input type="hidden" name="idhome" value="<?php echo $rows_Home['idhome']; ?>">
+                                                                    <input type="hidden" name="idhome" >
                                                                     
-                                                                     <input type="hidden" name="objetivo" value="<?php echo $rows_Home['objetivo']; ?>">
+                                                                     <input type="hidden" name="objetivo" >
                                                                     
                                                                      <input type="submit" value="Alterar " class="btn btn-success btn"><br><br>
                                                               
@@ -200,10 +201,10 @@ $Home=mysqli_query ($conn, $sql);
                                                 </div>
 
 
-                                                <button type="button"  class="btn btn-default " data-toggle="modal" data-target="#confirmas<?php echo $rows_Home['idhome']; ?>"><span class="oi oi-plus"></span></button> 
+                                                <button type="button"  class="btn btn-default " data-toggle="modal" data-target="#confirmas<?php echo $rows_Home['idhome']; ?>"><span class="oi oi-spreadsheet"></span></button> 
                                                 
                                                 <div class="modal fade" id="confirmas<?php echo $rows_Home['idhome']; ?>" role="dialog ">
-                                                    <div class="modal-dialog ">
+                                                    <div class="modal-dialog modal-lg  ">
                                                         <div class="modal-content modal-lg">
                                                             <div class="modal-body">
                                                                <h4>Sobre  Curso: </h4>
@@ -237,7 +238,7 @@ $Home=mysqli_query ($conn, $sql);
                                                 <button type="button"  class="btn btn-success " data-toggle="modal" data-target="#confirmo<?php echo $rows_Home['idhome']; ?>"><span class="oi oi-pencil" ></span></button>  
                                                 
                                                 <div class="modal fade" id="confirmo<?php echo $rows_Home['idhome']; ?>" role="dialog ">
-                                                      <div class="modal-dialog ">
+                                                      <div class="modal-dialog modal-lg ">
                                                         <div class="modal-content modal-lg">
                                                           <div class="modal-body">
                                                               <form method="POST" action="php/edit_Home.php">
@@ -254,11 +255,11 @@ $Home=mysqli_query ($conn, $sql);
                                         
                                                                 <br><br>
                                                                 <center>
-                                                                    <input type="hidden" name="apresentacao" value="<?php echo $rows_Home['apresentacao']; ?>">
+                                                                    <input type="hidden" name="apresentacao">
                                                                     
-                                                                    <input type="hidden" name="idhome" value="<?php echo $rows_Home['idhome']; ?>">
+                                                                    <input type="hidden" name="idhome" >
                                                                     
-                                                                     <input type="hidden" name="sobre" value="<?php echo $rows_Home['sobre']; ?>">
+                                                                     <input type="hidden" name="sobre" >
                                                                     
                                                                      <input type="submit" value="Alterar " class="btn btn-success btn"><br><br>
                                                               
@@ -271,10 +272,10 @@ $Home=mysqli_query ($conn, $sql);
                                                 </div>
 
 
-                                                <button type="button"  class="btn btn-default " data-toggle="modal" data-target="#confirmao<?php echo $rows_Home['idhome']; ?>"><span class="oi oi-plus" ></span></button> 
+                                                <button type="button"  class="btn btn-default " data-toggle="modal" data-target="#confirmao<?php echo $rows_Home['idhome']; ?>"><span class="oi oi-spreadsheet" ></span></button> 
                                                 
                                                 <div class="modal fade" id="confirmao<?php echo $rows_Home['idhome']; ?>" role="dialog ">
-                                                    <div class="modal-dialog ">
+                                                    <div class="modal-dialog modal-lg ">
                                                         <div class="modal-content modal-lg">
                                                             <div class="modal-body">
                                                                <h4>Objetivo do Curso: </h4>

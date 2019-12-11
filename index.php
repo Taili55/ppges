@@ -1,11 +1,35 @@
 <?php
+
+    include "API/vendor/autoload.php";
+    use Stichoza\GoogleTranslate\GoogleTranslate;
+    function language(){   
+        if(isset($_GET['idioma']) && $_GET['idioma'] == 'en'){     
+            $shortname = "en";
+        }else{
+            $shortname = "pt";
+        }
+        return $shortname;
+    }
+
+    $idioma = language();
+    $tr = new GoogleTranslate($idioma);
 session_start();
+
+
+
 include_once ("php/conect.php");
 ini_set( 'default_charset', 'utf-8');
 header("Content-type: text/html; charset=utf-8"); 
 
 $sql="SELECT * from home WHERE idhome=1";
 $obj=mysqli_query ($conn, $sql);
+
+$sqlt="SELECT * from trabalhos";
+$trab=mysqli_query ($conn, $sqlt);
+
+$sqlv="SELECT * from informes";
+$avi=mysqli_query ($conn, $sqlv);
+
 ?>
 <!DOCTYPE html>
 
@@ -58,38 +82,39 @@ $obj=mysqli_query ($conn, $sql);
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+              <?php while ($rows_obj=mysqli_fetch_assoc($obj))  {?>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">                
                     <li class="nav-item">
-                        <a class="nav-link" href="informes.html">Informes</a>
+                        <a class="nav-link" href="informes.php"><?php echo $tr->translate('Informes');?></a>
                     </li>
                      
                     <li class="nav-item">
-                        <a class="nav-link" href="coord.html">Coordenação</a>
+                        <a class="nav-link" href="coord.php"><?php echo $tr->translate('Coordenação');?></a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="prof.html">Professores Orientadores</a>
+                        <a class="nav-link" href="prof.php"><?php echo $tr->translate('Professores Orientadores');?></a>
                     </li>
                      
                     <li class="nav-item">
-                        <a class="nav-link" href="eventos.html">Eventos</a>
+                        <a class="nav-link" href="eventos.html"><?php echo $tr->translate('Eventos');?></a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="ciclo.html">Ciclo de Seminários e Palestras</a>
+                        <a class="nav-link" href="ciclo.html"><?php echo $tr->translate('Seminários e Palestras');?></a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="disc.html">Disciplinas do Mestrado</a>
+                        <a class="nav-link" href="disc.html"><?php echo $tr->translate('Disciplinas');?></a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="aluno.html">Alunos</a>
+                        <a class="nav-link" href="aluno.php"><?php echo $tr->translate('Alunos');?></a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="publi.html">Publicações</a>
+                        <a class="nav-link" href="publi.php"><?php echo $tr->translate('Publicações');?></a>
                     </li>
                 </ul>
             </div>
@@ -103,22 +128,20 @@ $obj=mysqli_query ($conn, $sql);
             <div class="collapse navbar-collapse" id="navbarSupporte">
                 <nav class="nav flex-column">
                    
-                        <a  class="card-header bg-transparent border-">Últimas Publicações</a>
-                      
-                        <a  class="card-header bg-transparent border-"style="color: #2d842d;" href="Trab.pdf"> Defessa Dissertação N° 006 - João Silva </a>
-                     
-                        <a  class="card-header bg-transparent border-" style="color:  #2d842d;" href="Trab.pdf">Defessa Dissertação N° 005 - Maria Silva </a>
-                      
-                        <a  class="card-header bg-transparent border-" style="color:  #2d842d;" href="Trab.pdf">Defessa Dissertação N° 004 - Vitor Silva </a>
-                                            
-                        <a  class="card-header bg-transparent border-" style="color:  #2d842d;" href="Trab.pdf">Defessa Dissertação N° 003 - Pedro Silva </a>
-                       
-                        <a class="card-header bg-transparent border-" style="color:  #2d842d;" href="Trab.pdf">Defessa Dissertação N° 002 - Ana Silva </a>
-                      
-                        <a class="nav-link" style="color:  #2d842d;" href="Trab.pdf">Defessa Dissertação N° 001 - Bento Silva </a>
+                    <a  class="card-header bg-transparent border-"><b><?php echo $tr->translate('Últimas Publicações');?></b></a>
+                      <?php while ($rows_trab=mysqli_fetch_assoc($trab))  {?>
+                        <a  class="card-header bg-transparent border-"style="color: #2d842d;" href="<?php echo $rows_trab['download']; ?>"> <?php echo $rows_trab['titulo'];?> </a>
+                     <?php }?>
+                        
+            
+                    <a  class="card-header bg-transparent border-"><b><?php echo $tr->translate('Avisos');?></b></a>
+                      <?php while ($rows_avi=mysqli_fetch_assoc($avi))  {?>
+                        <a  class="card-header bg-transparent border-"style="color: #2d842d;" href="<?php echo $rows_avi['download']; ?>"> <?php echo $rows_avi['titulo'];?> </a>
+                     <?php }?>
+                        
                         
                 </nav>
-            </div>
+             </div>
         </nav>
         
         <nav class="navbar navbar-expand-lg navbar-light bg-white"  id="navbar-example3" style="max-width: 14.5rem; float:right; margin-top: 3%; margin-right:2%; border-radius: none;  "   >
@@ -128,11 +151,11 @@ $obj=mysqli_query ($conn, $sql);
             
             <div class="collapse navbar-collapse" id="navbarSupporteContent">
                 <nav class="nav flex-column">
-                    <a  class="card-header bg-transparent border-success">MESTRADO ACADÊMICO</a>
+                    <a  class="card-header bg-transparent border-success"><?php echo $tr->translate('Mestrado Acadêmico');?></a>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="color: black;">
-                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true" style="color: black; border-radius: none;">Apresentação</a>
-                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" style="color: black;  border-radius: none;">Sobre o Curso</a>
-                        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" style="color: black; border-radius: none;">Objetivos do Mestrado</a>
+                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true" style="color: black; border-radius: none;"><?php echo $tr->translate('Apresentação');?></a>
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" style="color: black;  border-radius: none;"><?php echo $tr->translate('Sobre o Curso');?></a>
+                        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" style="color: black; border-radius: none;"><?php echo $tr->translate('Objetivo');?></a>
                     </div>
                 </nav>
             </div>
@@ -144,17 +167,17 @@ $obj=mysqli_query ($conn, $sql);
                     <div class="col">
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                            <?php while ($rows_obj=mysqli_fetch_assoc($obj))  {?>
+                          
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                          <th scope="col" id="item-1">Apresentação</th>
+                                          <th scope="col" id="item-1"><?php echo $tr->translate('Apresentação');?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td> 
-                                                <p  class="text recuo">  <?php echo $rows_obj['apresentacao'];?></p>   
+                                            <td> <?php $texto = addslashes(strip_tags($rows_obj['apresentacao'])); ?>
+                                                <p  class="text recuo">  <?php echo $tr->translate($texto);?></p>   
                                             </td>
                                         </tr>
                                     </tbody>
@@ -164,13 +187,14 @@ $obj=mysqli_query ($conn, $sql);
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                          <th scope="col" id="item-1">Sobre o Curso</th>
+                                          <th scope="col" id="item-1"><?php echo $tr->translate('Sobre o Curso');?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td> <p  class="text recuo">   <?php echo $rows_obj['sobre'];?>
-                                                </p>   
+                                            <td> <?php $texto = addslashes(strip_tags($rows_obj['sobre'])); ?>
+                                                <p  class="text recuo">  <?php echo $tr->translate($texto);?></p>   
+                                               
                                             </td>
                                         </tr>
                                     </tbody>
@@ -180,13 +204,14 @@ $obj=mysqli_query ($conn, $sql);
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                          <th scope="col" id="item-4" >Objetivos do Mestrado</th>
+                                          <th scope="col" id="item-4" ><?php echo $tr->translate('Objetivo');?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td> 
-                                                <p  class="text recuo">   <?php echo $rows_obj['objetivo'];?> </p>
+                                                <?php $texto = addslashes(strip_tags($rows_obj['objetivo'])); ?>
+                                                <p  class="text recuo">  <?php echo $tr->translate($texto);?></p>   
                                             </td>
                                         </tr>
                                     </tbody>
@@ -205,7 +230,12 @@ $obj=mysqli_query ($conn, $sql);
         <div class="rodape">
             <nav class="navbar navbar-white bg-white">
                 <span class="navbar">© 2014 Universidade Federal do Pampa - UNIPAMPA</span>
+                <div style="color: #000; float: rigth; text-decoration:none;">
+                    <a href="index.php?idioma=en" style="text-decoration:none; color: #000;">Inglês |</a>
+                    <a href="index.php?idioma=pt" style="text-decoration:none; color: #000">Português</a>
+                </div>
             </nav>
+            
         </div>
     </body>
 </html>

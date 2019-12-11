@@ -19,7 +19,7 @@ $Home=mysqli_query ($conn, $sql);
 <!DOCTYPE>
 <html>
     <head>
-        <title>Informes</title>
+        <title>Adm Coord</title>
         <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -37,14 +37,12 @@ $Home=mysqli_query ($conn, $sql);
         <div class="menu" style="height:10%">
             <br>
             <a  href="admin.php" style="font-size:24px; color: black; margin-left: 3%; text-decoration:none; "> PPGES ADMINISTRATIVO </a> 
-           
+            <a style="margin-left:65%; margin-top: -2%;" href="sair.php" class="btn btn-success " role="button"> <span class="oi oi-account-login"></span> Sair</a>
         </div> 
        
         
         <nav class="navbar navbar-expand-lg navbar-light bg-white"  id="navbar-example3" style="max-width: 18rem; float:left; margin-top: 3%; margin-left: 3%; border-radius: none;  "   >
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupporteContent" aria-controls="navbarSupporteContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupporteContent" aria-controls="navbarSupporteContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             
             <div class="collapse navbar-collapse" id="navbarSupporteContent">
                 <nav class="nav flex-column">
@@ -53,176 +51,199 @@ $Home=mysqli_query ($conn, $sql);
                         
                         <a class="nav-link" style="color:  #000;"  href="admin.php">Home</a>
                       
-                        <a class="nav-link" style="color:  #000;"  href="informes.html">Informes</a>
+                        <a class="nav-link" style="color:  #000;"  href="info_edit.php">Informes</a>
                      
-                        <a class="nav-link" style="color:  #000;"  href="coord.html">Coordenação</a>
+                        <a class="nav-link" style="background-color:rgba(185, 182, 182, 0.42) ; color:  #000;"  href="coord_edit.php">Coordenação</a>
                       
-                        <a class="nav-link" style="color:  #000;"  href="coord_edit.php">Professores Orientadores</a>
+                        <a class="nav-link" style="color:  #000;"  href="prof_edit.php">Professores Orientadores</a>
                                             
-                        <a class="nav-link" style="color:  #000;"  href="eventos.html">Eventos</a>
+                        <a class="nav-link" style="color:  #000;"  href="event_edit.php">Eventos</a>
                        
-                        <a class="nav-link" style="color:  #000;"  href="ciclo.html">Ciclo de Seminários e Palestras</a>
+                        <a class="nav-link" style="color:  #000;"  href="ciclo_edit.php">Ciclo de Seminários e Palestras</a>
                     
-                        <a class="nav-link" style="color:  #000;"  href="disc.html">Disciplinas do Mestrado</a>
+                        <a class="nav-link" style="color:  #000;"  href="disc_edit.php">Disciplinas do Mestrado</a>
                         
-                        <a class="nav-link" style="color:  #000;"  href="aluno.html">Alunos</a>
+                        <a class="nav-link" style="color:  #000;"  href="aluno_edit.php">Alunos</a>
                       
-                        <a class="nav-link" style="color:  #000;" href="publi.html">Publicações </a>
+                        <a class="nav-link" style="color:  #000;" href="publi_edit.php">Publicações </a>
                     
-                        <a class="nav-link" style="color:  #000;" href="publi.html">Bolsista </a>
-                        
+                       
                 </nav>
             </div>
         </nav>
         
         
         <div data-spy="scroll" data-target="#navbar-example3" data-offset="0">
-            <div class="container" style="max-width: 72.5%;  margin-left: 25.7%; padding-top: 2%; margin-bottom: 3%;" >
-                
+            <div class="container" style="max-width: 72.5%;  margin-left: 25.7%; padding-top: 2%; margin-bottom: 3%;" > 
                 <table class="table table-hover" >
-									<thead>
-                                      <th>#</th>  
-									  <th>Nome</th>
-                                      <th>Opções </th>
-                                      <th>
+                    <thead>
+                        <th>#</th>  
+						<th>Nome</th>
+                        <th>Opções </th>
+                        <th> 
+                            <button type="button" style="margin-left:30%;"  class="btn btn-success" data-toggle="modal" data-target="#confirm"><span class="oi oi-plus"> </span>  Adicionar</button> 
+                            <div class="modal fade" id="confirm" role="dialog ">
+                                <div class="modal-dialog  ">
+                                    <div class="modal-content ">
+                                        <div class="modal-body">
+                                            <form method="POST" action="php/result_coord.php">
+                                                <div class="form-group">                    
+                                                    <label><b>Nome: </b></label>
+                                                    <input type="text" style="width:95%" name="nome" placeholder="Digite o nome do Professor" class="form-control">
+                                                    
+                                                    <label><b>Email: </b></label>
+                                                    <input type="text" name="email" style="width:95%" placeholder="Digite o nome do Professor" class="form-control">
+                                                    
+                                                    <label><b>Cargo</b></label>
+                                                    <select name="cargo" style="width:98%"  class="form-control selectpicker" >
+                                                        <option> ... </option>
+                                                        <option value= "Coordenador"> Coordenador</option>
+                                                        <option value= "Coordenador Substituto"> Coordenador Substituto </option>
+                                                        <option value= "Comissão de Pós-Graduação - Titular"> Comissão de Pós-Graduação - Titular </option>
+                                                        <option value= "Comissão de Pós-Graduação - Suplente"> Comissão de Pós-Graduação - Suplente </option>
+                                                        <option value= "Secretário Acadêmico"> Secretário Acadêmico</option>
+                                                        <br>
+                                                    </select>
+                                                    
+                                                    <label><b>Sub Cargo</b></label>
+                                                    <select name="subcargo" style="width:98%"  class="form-control selectpicker" >
+                                                        <option value= "Nenhum"> Nenhum</option>
+                                                        <option value= "Comissão de Bolsas"> Comissão de Bolsas</option>
+                                                        <option value= "Comissão Acompanhamento da Produção Docente"> Comissão Acompanhamento da Produção Docente </option>
+                                                        <br>
+                                                    </select> 
+                                                </div>
+                                                
+                                                <br><br>
+                                                <center>
+                                                    <input type="submit" name="btnCadUsuario" value="Cadastrar" class="btn btn-success"> 
+                                                              
+                                                    <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+                                                </center>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div> 
                                        
-                                              </th>
-								  </thead>
-								  <tbody>
-                                    <?php while ($rows_Home=mysqli_fetch_assoc($Home)) {?>
-                                        <tr>
-                                            <td><?php echo $rows_Home['idcoord'];?></td>
-                                            <td><?php echo $rows_Home['nome'];?></td>
-                                            <td>  
-                                                <button type="button"  class="btn btn-success" data-toggle="modal" data-target="#confirm<?php echo $rows_Home['idcoord']; ?>"><span class="oi oi-pencil"></span></button> 
+                        </th>
+                    </thead>
+                    
+                    <tbody>
+                        <?php while ($rows_Home=mysqli_fetch_assoc($Home)) {?>
+                        <tr>
+                            <td><?php echo $rows_Home['idcoord'];?></td>
+                            <td><?php echo $rows_Home['nome'];?></td>
+                            <td>  
+                                <button type="button"  class="btn btn-success" data-toggle="modal" data-target="#confirm<?php echo $rows_Home['idcoord']; ?>"><span class="oi oi-pencil"></span></button> 
                                                 
-                                                <div class="modal fade" id="confirm<?php echo $rows_Home['idcoord']; ?>" role="dialog ">
-                                                    <div class="modal-dialog ">
-                                                        <div class="modal-content modal-lg">
-                                                            <div class="modal-body">
-                                                                <form method="POST" action="php/edit_Coord.php">
-                                                                    <div class="form-group">
+                                <div class="modal fade" id="confirm<?php echo $rows_Home['idcoord']; ?>" role="dialog ">
+                                    <div class="modal-dialog ">
+                                        <div class="modal-content modal-lg">
+                                            <div class="modal-body">
+                                                <form method="POST" action="php/edit_Coord.php">
+                                                    <div class="form-group">
                                                                     
-                                                                        <label><b>Nome: </b></label>
-                                                                        <input type="text" style="width:95%" name="nome" value="<?php echo $rows_Home['nome']; ?>" placeholder="Digite o nome do Professor" class="form-control">
+                                                        <label><b>Nome: </b></label>
+                                                        <input type="text" style="width:95%" name="nome"   value="<?php echo $rows_Home['nome']; ?>" placeholder="Digite o nome do Professor" class="form-control">
                                                                
                                                                     
-                                                                        <label><b>Email: </b></label>
-                                                                        <input type="text" name="email" style="width:95%" value=" <?php echo $rows_Home['email']; ?>" placeholder="Digite o nome do Professor" class="form-control">
+                                                        <label><b>Email: </b></label>
+                                                        <input type="text" name="email" style="width:95%" value=" <?php echo $rows_Home['email']; ?>" placeholder="Digite o nome do Professor" class="form-control">
                                                                 
                                                                  
-                                                                        <label><b>Cargo</b></label>
-                                                                        <select name="cargo" style="width:98%"  class="form-control selectpicker" >
-                                                                        <option value= "<?php echo $rows_Home['cargo']; ?>"> <?php echo $rows_Home['cargo']; ?> </option>
-                                                                        <option value= "Coordenador"> Coordenador</option>
-                                                                        <option value= "Coordenador Substituto"> Coordenador Substituto </option>
-                                                                        <option value= "Comissão de Pós-Graduação - Titular"> Comissão de Pós-Graduação - Titular </option>
-                                                                        <option value= "Comissão de Pós-Graduação - Suplente"> Comissão de Pós-Graduação - Suplente </option>
-                                                                        <option value= "Comissão de Bolsas"> Comissão de Bolsas </option>
-                                                                        <option value= "Comissão Acompanhamento da Produção Docente"> Comissão Acompanhamento da Produção Docente </option>
-                                                                        <option value= "Secretário Acadêmico"> Secretário Acadêmico</option>
-                                                                        <br>
-                                                                        </select> 
-                                                                    </div>
-                                        
-                                                                    <br><br>
-                                                                    <center>
-                                                                    <input type="hidden" name="idcoord" value="<?php echo $rows_Home['idcoord']; ?>">
-                                                                    
-                                                                    <input type="submit" value="Alterar " class="btn btn-success btn"><br><br>
-                                                              
-                                                                    <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
-                                                                </center>
-                                                            </form>
-							                             </div>
-					                                   </div>
-                                                    </div> 
-                                                </div>
-                                                	
-                                                <button type="button"  class="btn btn-default " data-toggle="modal" data-target="#confirma<?php echo $rows_Home['idcoord']; ?>"><span class="oi oi-spreadsheet"></span></button> 
-                                                
-                                                <div class="modal fade" id="confirma<?php echo $rows_Home['idcoord']; ?>" role="dialog ">
-                                                    <div class="modal-dialog ">
-                                                        <div class="modal-content modal-lg">
-                                                            <div class="modal-body">
-                                                                <h4>Nome: </h4>
-                                                                 <p><?php echo $rows_Home['nome']; ?></p>      
-                                                                <h4>Email: </h4>
-                                                                 <p><?php echo $rows_Home['email']; ?></p>
-                                                                <h4>Cargo: </h4>
-                                                                 <p><?php echo $rows_Home['cargo']; ?></p>
-                                                                <br><br>
-                                                                <center>
-                                                                    
-                                                                    <button type="button" data-dismiss="modal" class="btn btn-default">Voltar</button>
-                                                                </center>
-                                                            </div>
-                                                        </div>
+                                                        <label><b>Cargo</b></label>
+                                                        <select name="cargo" style="width:98%"  class="form-control selectpicker" >
+                                                            <option value= "<?php echo $rows_Home['cargo']; ?>"> <?php echo $rows_Home['cargo']; ?> </option>
+                                                            <option value= "Coordenador"> Coordenador</option>
+                                                            <option value= "Coordenador Substituto"> Coordenador Substituto </option>
+                                                            <option value= "Comissão de Pós-Graduação - Titular"> Comissão de Pós-Graduação - Titular </option>
+                                                            <option value= "Comissão de Pós-Graduação - Suplente"> Comissão de Pós-Graduação - Suplente </option>
+                                                            <option value= "Secretário Acadêmico"> Secretário Acadêmico</option>
+                                                            <br>
+                                                        </select> 
+                                                                        
+                                                        <label><b>Sub Cargo</b></label>
+                                                        <select name="subcargo" style="width:98%"  class="form-control selectpicker" >
+                                                            <option value= "<?php echo $rows_Home['subcargo']; ?>"> <?php echo $rows_Home['subcargo']; ?> </option>
+                                                            <option value= "Nenhuma"> Nenhuma</option>
+                                                            <option value= "Comissão de Bolsas"> Comissão de Bolsas</option>
+                                                            <option value= "Comissão Acompanhamento da Produção Docente"> Comissão Acompanhamento da Produção Docente </option>
+                                                            <br>
+                                                        </select> 
                                                     </div>
-                                                </div>
-                                                
-                                                
-                                           </td>
-                                           <td> </td>
-                                        </tr>
-                                      <?php }?>
-								  </tbody>
-								</table>
-                                		
-                               <button type="button" style="margin-left:80%;"  class="btn btn-success" data-toggle="modal" data-target="#confirm"><span class="oi oi-plus"> </span>  Adicionar</button> 
-                                                
-                                                <div class="modal fade" id="confirm" role="dialog ">
-                                                    <div class="modal-dialog ">
-                                                        <div class="modal-content modal-lg">
-                                                            <div class="modal-body">
-                                                                <form method="POST" action="php/result_coord.php">
-                                                                    <div class="form-group">
-                                                                    
-                                                                        <label><b>Nome: </b></label>
-                                                                        <input type="text" style="width:95%" name="nome" placeholder="Digite o nome do Professor" class="form-control">
-                                                               
-                                                                    
-                                                                        <label><b>Email: </b></label>
-                                                                        <input type="text" name="email" style="width:95%" placeholder="Digite o nome do Professor" class="form-control">
-                                                                
-                                                                 
-                                                                        <label><b>Cargo</b></label>
-                                                                        <select name="cargo" style="width:98%"  class="form-control selectpicker" >
-                                                                        <option> ... </option>
-                                                                        <option value= "Coordenador"> Coordenador</option>
-                                                                        <option value= "Coordenador Substituto"> Coordenador Substituto </option>
-                                                                        <option value= "Comissão de Pós-Graduação - Titular"> Comissão de Pós-Graduação - Titular </option>
-                                                                        <option value= "Comissão de Pós-Graduação - Suplente"> Comissão de Pós-Graduação - Suplente </option>
-                                                                        <option value= "Comissão de Bolsas"> Comissão de Bolsas </option>
-                                                                        <option value= "Comissão Acompanhamento da Produção Docente"> Comissão Acompanhamento da Produção Docente </option>
-                                                                        <option value= "Secretário Acadêmico"> Secretário Acadêmico</option>
-                                                                        <br>
-                                                                        </select> 
-                                                                    </div>
                                         
-                                                                    <br><br>
-                                                                    <center>
-                                                                     <input type="submit" name="btnCadUsuario" value="Cadastrar" class="btn btn-success"> 
+                                                    <br><br>
+                                                    <center>
+                                                        <input type="hidden" name="idcoord" value="<?php echo $rows_Home['idcoord']; ?>">
+                                                                        
+                                                        <input type="submit" value="Alterar " class="btn btn-success btn">
                                                               
-                                                                    <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
-                                                                </center>
-                                                            </form>
-							                             </div>
-					                                   </div>
-                                                    </div> 
-                                                </div> 
-                <br> <br> 
+                                                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+                                                    </center>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                                                    	
+                                <button type="button"  class="btn btn-default " data-toggle="modal" data-target="#confirma<?php echo $rows_Home['idcoord']; ?>"><span class="oi oi-spreadsheet"></span></button> 
+                                                
+                                <div class="modal fade" id="confirma<?php echo $rows_Home['idcoord']; ?>" role="dialog ">
+                                    <div class="modal-dialog ">
+                                        <div class="modal-content modal-lg">
+                                            <div class="modal-body">
+                                                <h4>Nome: </h4>
+                                                <p><?php echo $rows_Home['nome']; ?></p>      
+                                                <h4>Email: </h4>
+                                                <p><?php echo $rows_Home['email']; ?></p>
+                                                <h4>Cargo: </h4>
+                                                <p><?php echo $rows_Home['cargo']; ?></p>
+                                                <h4>Sub-Cargo: </h4>
+                                                <p><?php echo $rows_Home['subcargo']; ?></p>
+                                                <br><br>
+                                                <center>
+                                                                        
+                                                    <button type="button" data-dismiss="modal" class="btn btn-  default">Voltar</button>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirme<?php echo $rows_Home['idcoord']; ?>  "><span class="oi oi-trash" ></span> </button>
+                                <div class="modal fade" id="confirme<?php echo $rows_Home['idcoord']; ?>" role="dialog">
+                                    <div class="modal-dialog modal-md">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <p> Deseja realmente excluir <?php echo $rows_Home['nome']; ?> ? </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger btn-sm"><a href="php/excluir_coord.php?idcoord=<?php echo $rows_Home['idcoord']; ?>" style="color:white"  >  Excluir</a></button>
+                                                <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                                
+                            </td>
+                            <td> </td>
+                        </tr>
+                        <?php }?>
+                    </tbody>
+                </table>
             </div>  
         </div>
+            
         
         
+     
         
-        <br> <br> <br> <br>
-        <br> <br> <br> <br>
         <div class="rodape">
             <nav class="navbar navbar-white bg-white">
                 <span class="navbar">© 2014 Universidade Federal do Pampa - UNIPAMPA</span>
             </nav>
         </div>
+        
     </body>
 </html>

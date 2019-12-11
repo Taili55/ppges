@@ -23,7 +23,7 @@
         				$_SESSION['idAdm'] = $row_usuario['idAdm'];
                         $_SESSION['email'] = $row_usuario['email'];
                         $_SESSION['senha'] = $row_usuario['senha']; 
-                        header("Location: ../adm.php");
+                        header("Location: ../admin.php");
                        
                 
                 }else{
